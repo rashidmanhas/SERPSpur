@@ -1,0 +1,68 @@
+{
+  "info": {
+    "name": "SerpSpur Developer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Keyword Research (Single & Deep Clusters)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-API-Key", "value": "ss_live_YOUR_KEY", "type": "text" }
+        ],
+        "url": {
+          "raw": "https://serpspur.com/api/v1/keywords?keyword=seo audit tool&country=us&language=en&depth=3",
+          "protocol": "https",
+          "host": ["serpspur", "com"],
+          "path": ["api", "v1", "keywords"],
+          "query": [
+            { "key": "keyword", "value": "seo audit tool" },
+            { "key": "country", "value": "us" },
+            { "key": "language", "value": "en" },
+            { "key": "depth", "value": "3" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Batch Keyword Vault Lookup",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-API-Key", "value": "ss_live_YOUR_KEY", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"keywords\": [\"seo audit tool\", \"broken link checker\"],\n  \"country\": \"us\",\n  \"language\": \"en\",\n  \"mode\": \"vault\"\n}"
+        },
+        "url": {
+          "raw": "https://serpspur.com/api/v1/keywords/batch",
+          "protocol": "https",
+          "host": ["serpspur", "com"],
+          "path": ["api", "v1", "keywords", "batch"]
+        }
+      }
+    },
+    {
+      "name": "TAI Traffic Authenticity",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-API-Key", "value": "ss_live_YOUR_KEY", "type": "text" }
+        ],
+        "url": {
+          "raw": "https://serpspur.com/api/v1/tai?domain=serpspur.com&mode=auto",
+          "protocol": "https",
+          "host": ["serpspur", "com"],
+          "path": ["tai"],
+          "query": [
+            { "key": "domain", "value": "serpspur.com" },
+            { "key": "mode", "value": "auto" }
+          ]
+        }
+      }
+    }
+  ]
+}
