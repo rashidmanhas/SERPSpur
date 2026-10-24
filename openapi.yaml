@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: SerpSpur Universal Developer API
+  description: Programmatic API for Keyword Clusters, Backlinks to Rank, and Traffic Authenticity.
+  version: 1.0.0
+servers:
+  - url: https://serpspur.com/api/v1
+    description: Production Server
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: ss_live_*
+
+security:
+  - ApiKeyAuth: []
+  - BearerAuth: []
+
+paths:
+  /keywords:
+    get:
+      summary: Retrieve keyword metrics, search intent, backlink requirements, and clusters
+      parameters:
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+          example: seo audit tool
+        - name: country
+          in: query
+          required: false
+          schema:
+            type: string
+            default: us
+        - name: language
+          in: query
+          required: false
+          schema:
+            type: string
+            default: en
+        - name: depth
+          in: query
+          description: Crawl depth (0=Seed only, 1=Top 8, 2=35 KWs, 3=100 KWs, 4=250 KWs)
+          required: false
+          schema:
+            type: integer
+            default: 3
+        - name: mode
+          in: query
+          description: "sandbox (0 Cr) | vault (30d cache only) | lite | full"
+          schema:
+            type: string
+            default: full
+      responses:
+        '200':
+          description: Successful keyword intelligence response
+        '401':
+          description: Invalid or missing API key
+        '402':
+          description: Insufficient wallet balance
+
+  /keywords/batch:
+    post:
+      summary: Batch keyword query (up to 50 in vault mode, up to 10 in live mode)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keywords:
+                  type: array
+                  items:
+                    type: string
+                country:
+                  type: string
+                  default: us
+                language:
+                  type: string
+                  default: en
+                mode:
+                  type: string
+                  enum: [vault, live, sandbox]
+                  default: vault
+      responses:
+        '200':
+          description: Batch keyword lookup results
+
+  /tai:
+    get:
+      summary: Check domain Traffic Authenticity Index (TAI) and fraud sub-scores
+      parameters:
+        - name: domain
+          in: query
+          required: true
+          schema:
+            type: string
+          example: serpspur.com
+        - name: mode
+          in: query
+          schema:
+            type: string
+            enum: [auto, vault, live, sandbox]
+            default: auto
+      responses:
+        '200':
+          description: Domain authenticity report
