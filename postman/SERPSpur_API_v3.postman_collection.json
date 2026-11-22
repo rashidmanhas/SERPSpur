@@ -1,0 +1,927 @@
+{
+    "info":  {
+                 "name":  "SERPSpur Universal SEO \u0026 AI Intelligence API (v3.0)",
+                 "description":  "Official Postman collection for all 21 live SERPSpur REST API endpoints across 7 SEO \u0026 AI Intelligence APIs. Set api_key to ss_live_sandbox_demo with mode=sandbox to test free (0 credits), or use your personal ss_live_ key from https://serpspur.com/api-docs/.",
+                 "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+             },
+    "auth":  {
+                 "type":  "bearer",
+                 "bearer":  [
+                                {
+                                    "key":  "token",
+                                    "value":  "{{api_key}}",
+                                    "type":  "string"
+                                }
+                            ]
+             },
+    "variable":  [
+                     {
+                         "key":  "base_url",
+                         "value":  "https://serpspur.com/api/v1",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "api_key",
+                         "value":  "ss_live_sandbox_demo",
+                         "type":  "string"
+                     }
+                 ],
+    "item":  [
+                 {
+                     "name":  "0. Auth, Quotas \u0026 Errors",
+                     "description":  "All 7 SERPSpur REST APIs share one unified gateway at https://serpspur.com/api/v1. Authenticate using Bearer Token, X-API-Key, or HTTP Basic Auth (your account email + ss_live_ API key). Every error response (4xx/5xx) and every sandbox call charges strictly 0 credits.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/account — Inspect Wallet Balance, Active API Subscription \u0026 Effective Quotas",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Returns your real-time rollover credit balance, SaaS plan tier, stackable Monthly Developer API Subscription status, effective RPM/burst/live-concurrency ceilings, low-balance alert configuration, and active API key telemetry. Call this before launching large batch or 100-page crawl jobs.\n\nCredit Cost: 0 Credits (Free)\nCache Policy: Live account state",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/account",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "account"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "GET /api/v1/openapi.json — Download Auto-Generated OpenAPI 3.1 Specification",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Public, unauthenticated OpenAPI 3.1 JSON document describing every SERPSpur REST API endpoint, parameter schema, authentication scheme, and server URL. Import directly into Postman, Insomnia, Swagger UI, or LLM coding assistants.\n\nCredit Cost: 0 Credits (Public Spec)\nCache Policy: 1-Hour HTTP Cache",
+                                                      "auth":  {
+                                                                   "type":  "noauth"
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/openapi.json",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "openapi.json"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "1. Site Audit \u0026 Crawl API",
+                     "description":  "Execute real Headless Chrome rendering on desktop or mobile viewports to measure Core Web Vitals (LCP, CLS, TTFB, FCP, TBT, INP), post-JS On-Page SEO, AI Crawler Readiness (robots.txt directives for GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot + llms.txt), Security Headers, Broken Links, and async 5–100 page full-site crawls without HTTP timeouts.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/audit — Single-URL Headless Chrome Technical, CWV \u0026 AI-Crawler Audit",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Audits a single URL in Headless Chrome (desktop 1366x768 or mobile 390x844). Returns 60+ technical data points across HTTP, On-Page SEO, Core Web Vitals, Page Weight, Links/Media, Security Headers, AI Crawler Readiness, and prioritized issues. Add detail=full at 0 extra credits to include deep DOM arrays (headings outline, oversized/missing-alt image URLs, raw JSON-LD, links inventory, and extracted text).\n\nCredit Cost: Vault: 3 Cr | Live: 10 Cr | Deep (+30 Links): 20 Cr\nCache Policy: 24-Hour Shared Vault",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/url=https%3A%2F%2Fserpspur.com%2F\u0026device=desktop\u0026detail=full\u0026mode=auto",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "audit"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "url",
+                                                                                    "value":  "https://serpspur.com/"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "device",
+                                                                                    "value":  "desktop"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "detail",
+                                                                                    "value":  "full"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "mode",
+                                                                                    "value":  "auto"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/audit/crawl — Start Async Multi-Page Full-Site Crawl (5–100 Pages)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Dispatches a non-blocking 5–100 page Headless Chrome site crawl via sitemap discovery + internal link BFS. Returns immediately (\u003c250ms) with a job_id and poll_url so your app never times out. Credits are reserved upfront (max_pages × 2 Cr); if the site has fewer pages than requested, unused credits are auto-refunded atomically upon completion (both when polled and via our 15-minute background reconciler cron).\n\nCredit Cost: 2 Cr / crawled page (unused pages auto-refunded)\nCache Policy: Async Queue + Permanent Archive",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"url\":  \"https://serpspur.com/\",\n    \"max_pages\":  100,\n    \"device\":  \"desktop\",\n    \"webhook_url\":  \"https://yourapp.com/hooks/crawl\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/audit/crawl",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "audit",
+                                                                               "crawl"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "GET /api/v1/audit/crawl/{job_id} — Poll Crawl Progress, Paginated JSON Report \u0026 Streaming CSV Export",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Polls a running crawl or retrieves a permanently archived completed crawl for 0 credits. Returns site-wide health rollup, cross-page duplicate title/meta clusters, AI crawler readiness, paginated per-page audits, and exact auto-refund accounting. Append ?format=csv to stream ALL crawled pages directly as an RFC-4180 CSV file.\n\nCredit Cost: 0 Credits (Free Polling \u0026 CSV Download)\nCache Policy: Permanent DB Archive Once Completed",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/page=1\u0026per_page=25",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "audit",
+                                                                               "crawl",
+                                                                               "{job_id}"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "page",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "per_page",
+                                                                                    "value":  "25"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "GET /api/v1/audit/crawls — List Past Async Site Crawl Jobs",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Returns a paginated history of all multi-page site crawl tasks created by your account, filterable by status, with ready-to-use poll_url and csv_url links.\n\nCredit Cost: 0 Credits (Free Task History)\nCache Policy: Direct DB History",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/status=completed\u0026per_page=20",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "audit",
+                                                                               "crawls"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "status",
+                                                                                    "value":  "completed"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "per_page",
+                                                                                    "value":  "20"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/audit/batch — Batch Technical Audit Vault Lookup (Up to 50 URLs)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Checks up to 50 URLs against the 24-hour Technical Audit Vault in a single ultra-fast request. You are charged only for cache hits; misses cost 0 credits.\n\nCredit Cost: 3 Cr / Vault Hit (0 Cr for Misses)\nCache Policy: 24-Hour Vault Only",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"urls\":  [\n                 \"https://serpspur.com/\",\n                 \"https://serpspur.com/pricing/\"\n             ],\n    \"device\":  \"desktop\",\n    \"mode\":  \"vault\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/audit/batch",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "audit",
+                                                                               "batch"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "2. Backlinks \u0026 Gap API",
+                     "description":  "Built for link-building agencies, domain marketplaces, and SEO SaaS platforms working with sites carrying millions of backlinks. Pull full authority summaries, filter by 11 zero-surcharge criteria (CMS platform, backlink type, live/lost, min DR, max spam score, TLD, anchor, semantic HTML location), stream unlimited pages via cursor pagination, run competitor backlink gap intersections, or stream RFC-4180 CSV directly.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/backlinks — Domain Authority Summary \u0026 Agency-Filtered Backlink Stream",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Retrieves normalized 0–100 Domain Rank, referring domains, dofollow ratio, spam score, CMS/TLD/country/semantic distributions, and up to 1,000 granular backlink rows per request with unlimited cursor pagination and optional CSV streaming.\n\nCredit Cost: Vault: 8 Cr | Summary: 30 Cr | P1 1K: 110 Cr | P2+ Cursor 1K: 80 Cr\nCache Policy: 30-Day Vault (Unfiltered) / Live Filtered",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/domain=serpspur.com\u0026include_links=1\u0026limit=1000\u0026link_mode=one_per_domain\u0026dofollow_only=1\u0026platform_type=blogs\u0026min_rank=40",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "backlinks"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "domain",
+                                                                                    "value":  "serpspur.com"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "include_links",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "limit",
+                                                                                    "value":  "1000"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "link_mode",
+                                                                                    "value":  "one_per_domain"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "dofollow_only",
+                                                                                    "value":  "1"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "platform_type",
+                                                                                    "value":  "blogs"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "min_rank",
+                                                                                    "value":  "40"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/backlinks/gap — Competitor Backlink Gap Intersection (1–4 Competitors)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Finds high-authority referring domains linking to your competitors that do NOT yet link to your target domain — ranked by authority for immediate outreach prospecting.\n\nCredit Cost: 30 Credits / Analysis\nCache Policy: Live Intersection",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"target\":  \"serpspur.com\",\n    \"competitors\":  [\n                        \"ahrefs.com\",\n                        \"semrush.com\"\n                    ],\n    \"intersection\":  \"all\",\n    \"limit\":  50\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/backlinks/gap",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "backlinks",
+                                                                               "gap"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/backlinks/batch — Batch Backlinks Vault Lookup (Up to 50 Domains)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Screens up to 50 domains in one call against the 30-day Backlinks Vault for authority summaries. Only cache hits are billed (8 Cr/hit).\n\nCredit Cost: 8 Cr / Vault Hit (0 Cr for Misses)\nCache Policy: 30-Day Vault Only",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"domains\":  [\n                    \"serpspur.com\",\n                    \"ahrefs.com\"\n                ],\n    \"mode\":  \"vault\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/backlinks/batch",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "backlinks",
+                                                                               "batch"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "3. Keyword Research API",
+                     "description":  "Pull real-time search demand, 12-month seasonality trends, YoY/QoQ growth velocity, Keyword Difficulty (0–100), Top-10 referring domains \u0026 dofollow links needed to rank, commercial intent, SERP features, forum-weakness signals, and multi-depth related keyword clusters (from Seed-Only Depth 0 up to Mega 200-Keyword Depth 4).",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/keywords — Single Keyword Intelligence \u0026 Related Cluster Scan (Depth 0–4)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Returns full seed keyword telemetry plus related keyword cluster sized by your chosen depth (0 = seed only, 1 = lite/top 8, 2 = standard/top 30, 3 = full/100 KWs, 4 = mega/200 KWs).\n\nCredit Cost: Vault: 5 Cr | D0: 15 | Lite: 18 | D2: 22 | Full 100: 30 | Mega: 50 Cr\nCache Policy: 30-Day Keyword Vault",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/keyword=seo+audit+tool\u0026country=us\u0026language=en\u0026mode=full",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "keywords"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "keyword",
+                                                                                    "value":  "seo audit tool"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "country",
+                                                                                    "value":  "us"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "language",
+                                                                                    "value":  "en"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "mode",
+                                                                                    "value":  "full"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/keywords/batch — Batch Keyword Intelligence (Up to 50 Vault / 10 Live)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Enriches up to 50 keywords in 1 call against the 30-day Keyword Vault (0 credits for misses) or up to 10 keywords live.\n\nCredit Cost: 18 Cr / Hit (0 Cr for Vault Misses)\nCache Policy: 30-Day Vault (50 KWs) / Live (10 KWs)",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"keywords\":  [\n                     \"seo audit tool\",\n                     \"broken link checker\"\n                 ],\n    \"country\":  \"us\",\n    \"mode\":  \"vault\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/keywords/batch",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "keywords",
+                                                                               "batch"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "GET /api/v1/keywords/golden — Community Golden Gems Feed (Low-KD High-Volume Keywords)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Returns trending high-opportunity, low-difficulty Golden Keywords discovered across the SERPSpur ecosystem over the last day or week.\n\nCredit Cost: 5 Credits / Call\nCache Policy: Daily / Weekly Curated Feed",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/period=weekly\u0026limit=25",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "keywords",
+                                                                               "golden"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "period",
+                                                                                    "value":  "weekly"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "limit",
+                                                                                    "value":  "25"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "4. 7-Engine SERP API",
+                     "description":  "Fetch live organic search results, SERP features (AI Overviews, Featured Snippets, People Also Ask), and instant target-domain rank matching across 7 global search engines — individually or all in parallel with one POST /api/v1/serp/multi request.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/serp — Single-Engine Live SERP \u0026 Dynamic Rank Match",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Fetches organic results, AI Overview detection, and SERP features for a keyword on any of the 7 supported engines. Supplying domain= automatically computes target_domain_rank without extra credits.\n\nCredit Cost: Vault (24h): 3 Cr | Live: 15 Cr\nCache Policy: 24-Hour SERP Vault",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/keyword=seo+audit+tool\u0026engine=google\u0026location=United+States\u0026domain=serpspur.com\u0026mode=auto",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "serp"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "keyword",
+                                                                                    "value":  "seo audit tool"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "engine",
+                                                                                    "value":  "google"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "location",
+                                                                                    "value":  "United States"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "domain",
+                                                                                    "value":  "serpspur.com"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "mode",
+                                                                                    "value":  "auto"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/serp/multi — Parallel Multi-Engine SERP \u0026 Rank Comparison (1–7 Engines)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Dispatches up to 7 search engines concurrently in one request and returns side-by-side positions, AI Overview presence, and organic results for every engine.\n\nCredit Cost: 10 Cr / Live Engine (3 Cr if 24h Cached)\nCache Policy: Per-Engine 24h Hybrid",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"keyword\":  \"seo audit tool\",\n    \"domain\":  \"serpspur.com\",\n    \"engines\":  [\n                    \"google\",\n                    \"bing\",\n                    \"yahoo\",\n                    \"youtube\"\n                ],\n    \"mode\":  \"auto\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/serp/multi",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "serp",
+                                                                               "multi"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "5. AI Mentions (GEO) API",
+                     "description":  "Quantify how often ChatGPT and Google AI Overviews cite and recommend a brand or domain. Returns a normalized 0–100 GEO Visibility Score, per-engine mention \u0026 impression splits, self-citation status, top third-party citing domains (e.g. G2, Forbes, Reddit), and recognized brand entities/categories.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/ai-mentions — Brand AI Mentions, Citations \u0026 GEO Visibility Score",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Measures brand/domain citations across ChatGPT and Google AI Overviews, returning composite GEO score, per-engine metrics, top citing domains, and recognized entity categories.\n\nCredit Cost: Vault (30d): 15 Cr | Single Engine: 125 Cr | Dual Engine: 245 Cr\nCache Policy: 30-Day GEO Vault",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/domain=serpspur.com\u0026engine=both\u0026location=United+States\u0026mode=auto",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "ai-mentions"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "domain",
+                                                                                    "value":  "serpspur.com"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "engine",
+                                                                                    "value":  "both"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "location",
+                                                                                    "value":  "United States"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "mode",
+                                                                                    "value":  "auto"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/ai-mentions/batch — Batch AI Mentions Vault Lookup (Up to 50 Domains)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Checks up to 50 domains in 1 request against the 30-day GEO Vault. Only cache hits consume credits.\n\nCredit Cost: 15 Cr / Vault Hit (0 Cr for Misses)\nCache Policy: 30-Day GEO Vault",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"domains\":  [\n                    \"serpspur.com\",\n                    \"ahrefs.com\"\n                ],\n    \"mode\":  \"vault\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/ai-mentions/batch",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "ai-mentions",
+                                                                               "batch"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "6. Domain Explorer API",
+                     "description":  "Get an instant worldwide organic and paid traffic profile for any domain: total monthly organic visits, equivalent paid traffic value in USD, ranking position distribution (Pos 1, 2–3, 4–10, 11–20, 21–50, 51–100), keyword momentum (new/improved/declined/lost), top ranking countries with traffic share %, and zero-cost cross-intelligence across TAI, Backlinks, AI Mentions, and Tech Audit vaults.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/domain — Global Domain Traffic, Position Distribution \u0026 Top Countries",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Returns deduplicated worldwide organic \u0026 paid traffic metrics, USD valuation, position buckets, keyword velocity, top countries, and cross-intelligence signals.\n\nCredit Cost: Vault (30d): 5 Cr | Live Global Scan: 20 Cr\nCache Policy: 30-Day Domain Vault",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/domain=ahrefs.com\u0026top_countries=10\u0026mode=auto",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "domain"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "domain",
+                                                                                    "value":  "ahrefs.com"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "top_countries",
+                                                                                    "value":  "10"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "mode",
+                                                                                    "value":  "auto"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/domain/batch — Batch Domain Explorer Vault Lookup (Up to 50 Domains)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Screens up to 50 domains in one call against the 30-day Domain Explorer Vault. Misses cost 0 credits.\n\nCredit Cost: 5 Cr / Vault Hit (0 Cr for Misses)\nCache Policy: 30-Day Domain Vault",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"domains\":  [\n                    \"serpspur.com\",\n                    \"ahrefs.com\"\n                ],\n    \"mode\":  \"vault\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/domain/batch",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "domain",
+                                                                               "batch"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "7. TAI™ Authenticity API",
+                     "description":  "Protect link marketplaces, M\u0026A buyers, and media agencies from domains with artificially inflated traffic charts. SERPSpur\u0027s proprietary 4-Pillar Traffic Authenticity Index (TAI™) evaluates Intent Authenticity, Referral Hygiene, Authority Equilibrium, and Routing Integrity to output a 0–100 trust score, verified human share %, valuation multiplier, boolean fraud signals, and a verifiable public certificate URL.",
+                     "item":  [
+                                  {
+                                      "name":  "GET /api/v1/tai — Single Domain TAI™ Traffic Authenticity Audit",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Computes or retrieves the 4-pillar TAI™ score (0–100), risk verdict, verified human vs phantom traffic percentages, fraud risk booleans, and verifiable certificate URL.\n\nCredit Cost: 90-Day Vault: 10 Cr | Live Deep Scan: 50 Cr\nCache Policy: 90-Day TAI Vault",
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/domain=serpspur.com\u0026mode=auto",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "tai"
+                                                                           ],
+                                                                  "query":  [
+                                                                                {
+                                                                                    "key":  "domain",
+                                                                                    "value":  "serpspur.com"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "mode",
+                                                                                    "value":  "auto"
+                                                                                }
+                                                                            ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  },
+                                  {
+                                      "name":  "POST /api/v1/tai/batch — Batch TAI™ Vault Vetting (Up to 50 Domains)",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Accept",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     },
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json",
+                                                                         "type":  "text"
+                                                                     }
+                                                                 ],
+                                                      "description":  "Vets up to 50 publisher domains in 1 request against the 90-day TAI™ Vault. Uncached domains return in misses[] at 0 credits.\n\nCredit Cost: 10 Cr / Vault Hit (0 Cr for Misses)\nCache Policy: 90-Day TAI Vault",
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n    \"domains\":  [\n                    \"serpspur.com\",\n                    \"ahrefs.com\"\n                ],\n    \"mode\":  \"vault\"\n}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               }
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{base_url}}/tai/batch",
+                                                                  "host":  [
+                                                                               "{{base_url}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "tai",
+                                                                               "batch"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "response":  [
+
+                                                   ]
+                                  }
+                              ]
+                 }
+             ]
+}

@@ -1,0 +1,1315 @@
+{
+    "openapi":  "3.1.0",
+    "info":  {
+                 "title":  "SERPSpur Universal SEO \u0026 AI Intelligence API",
+                 "version":  "3.0.0",
+                 "description":  "Unified REST API for Headless Chrome Site Audits \u0026 100-Page Crawls, Bulk Backlinks (Millions), Keyword Research, 7-Engine Live SERP, AI Mentions (GEO), Domain Explorer, and TAI™ Traffic Authenticity.",
+                 "contact":  {
+                                 "name":  "SERPSpur Developer Portal",
+                                 "url":  "https://serpspur.com/api-docs/"
+                             }
+             },
+    "servers":  [
+                    {
+                        "url":  "https://serpspur.com/api/v1",
+                        "description":  "Production API Gateway"
+                    }
+                ],
+    "security":  [
+                     {
+                         "BearerAuth":  [
+
+                                        ]
+                     },
+                     {
+                         "ApiKeyAuth":  [
+
+                                        ]
+                     },
+                     {
+                         "BasicAuth":  [
+
+                                       ]
+                     }
+                 ],
+    "components":  {
+                       "securitySchemes":  {
+                                               "BearerAuth":  {
+                                                                  "type":  "http",
+                                                                  "scheme":  "bearer",
+                                                                  "bearerFormat":  "ss_live_API_KEY"
+                                                              },
+                                               "ApiKeyAuth":  {
+                                                                  "type":  "apiKey",
+                                                                  "in":  "header",
+                                                                  "name":  "X-API-Key"
+                                                              },
+                                               "BasicAuth":  {
+                                                                 "type":  "http",
+                                                                 "scheme":  "basic",
+                                                                 "description":  "Username = Account Email, Password = ss_live_ API Key"
+                                                             }
+                                           }
+                   },
+    "tags":  [
+                 {
+                     "name":  "Auth, Quotas \u0026 Errors",
+                     "description":  "All 7 SERPSpur REST APIs share one unified gateway at https://serpspur.com/api/v1. Authenticate using Bearer Token, X-API-Key, or HTTP Basic Auth (your account email + ss_live_ API key). Every error response (4xx/5xx) and every sandbox call charges strictly 0 credits."
+                 },
+                 {
+                     "name":  "Site Audit \u0026 Crawl API",
+                     "description":  "Execute real Headless Chrome rendering on desktop or mobile viewports to measure Core Web Vitals (LCP, CLS, TTFB, FCP, TBT, INP), post-JS On-Page SEO, AI Crawler Readiness (robots.txt directives for GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot + llms.txt), Security Headers, Broken Links, and async 5–100 page full-site crawls without HTTP timeouts."
+                 },
+                 {
+                     "name":  "Backlinks \u0026 Gap API",
+                     "description":  "Built for link-building agencies, domain marketplaces, and SEO SaaS platforms working with sites carrying millions of backlinks. Pull full authority summaries, filter by 11 zero-surcharge criteria (CMS platform, backlink type, live/lost, min DR, max spam score, TLD, anchor, semantic HTML location), stream unlimited pages via cursor pagination, run competitor backlink gap intersections, or stream RFC-4180 CSV directly."
+                 },
+                 {
+                     "name":  "Keyword Research API",
+                     "description":  "Pull real-time search demand, 12-month seasonality trends, YoY/QoQ growth velocity, Keyword Difficulty (0–100), Top-10 referring domains \u0026 dofollow links needed to rank, commercial intent, SERP features, forum-weakness signals, and multi-depth related keyword clusters (from Seed-Only Depth 0 up to Mega 200-Keyword Depth 4)."
+                 },
+                 {
+                     "name":  "7-Engine SERP API",
+                     "description":  "Fetch live organic search results, SERP features (AI Overviews, Featured Snippets, People Also Ask), and instant target-domain rank matching across 7 global search engines — individually or all in parallel with one POST /api/v1/serp/multi request."
+                 },
+                 {
+                     "name":  "AI Mentions (GEO) API",
+                     "description":  "Quantify how often ChatGPT and Google AI Overviews cite and recommend a brand or domain. Returns a normalized 0–100 GEO Visibility Score, per-engine mention \u0026 impression splits, self-citation status, top third-party citing domains (e.g. G2, Forbes, Reddit), and recognized brand entities/categories."
+                 },
+                 {
+                     "name":  "Domain Explorer API",
+                     "description":  "Get an instant worldwide organic and paid traffic profile for any domain: total monthly organic visits, equivalent paid traffic value in USD, ranking position distribution (Pos 1, 2–3, 4–10, 11–20, 21–50, 51–100), keyword momentum (new/improved/declined/lost), top ranking countries with traffic share %, and zero-cost cross-intelligence across TAI, Backlinks, AI Mentions, and Tech Audit vaults."
+                 },
+                 {
+                     "name":  "TAI™ Authenticity API",
+                     "description":  "Protect link marketplaces, M\u0026A buyers, and media agencies from domains with artificially inflated traffic charts. SERPSpur\u0027s proprietary 4-Pillar Traffic Authenticity Index (TAI™) evaluates Intent Authenticity, Referral Hygiene, Authority Equilibrium, and Routing Integrity to output a 0–100 trust score, verified human share %, valuation multiplier, boolean fraud signals, and a verifiable public certificate URL."
+                 }
+             ],
+    "paths":  {
+                  "/account":  {
+                                   "get":  {
+                                               "tags":  [
+                                                            "Auth, Quotas \u0026 Errors"
+                                                        ],
+                                               "summary":  "Inspect Wallet Balance, Active API Subscription \u0026 Effective Quotas",
+                                               "description":  "Returns your real-time rollover credit balance, SaaS plan tier, stackable Monthly Developer API Subscription status, effective RPM/burst/live-concurrency ceilings, low-balance alert configuration, and active API key telemetry. Call this before launching large batch or 100-page crawl jobs. Credit Cost: 0 Credits (Free).",
+                                               "operationId":  "ep_get_account",
+                                               "responses":  {
+                                                                 "200":  {
+                                                                             "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                         },
+                                                                 "401":  {
+                                                                             "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                         },
+                                                                 "402":  {
+                                                                             "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                         },
+                                                                 "429":  {
+                                                                             "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                         }
+                                                             }
+                                           }
+                               },
+                  "/openapi.json":  {
+                                        "get":  {
+                                                    "tags":  [
+                                                                 "Auth, Quotas \u0026 Errors"
+                                                             ],
+                                                    "summary":  "Download Auto-Generated OpenAPI 3.1 Specification",
+                                                    "description":  "Public, unauthenticated OpenAPI 3.1 JSON document describing every SERPSpur REST API endpoint, parameter schema, authentication scheme, and server URL. Import directly into Postman, Insomnia, Swagger UI, or LLM coding assistants. Credit Cost: 0 Credits (Public Spec).",
+                                                    "operationId":  "ep_get_openapi",
+                                                    "responses":  {
+                                                                      "200":  {
+                                                                                  "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                              },
+                                                                      "401":  {
+                                                                                  "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                              },
+                                                                      "402":  {
+                                                                                  "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                              },
+                                                                      "429":  {
+                                                                                  "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                              }
+                                                                  },
+                                                    "security":  [
+
+                                                                 ]
+                                                }
+                                    },
+                  "/audit":  {
+                                 "get":  {
+                                             "tags":  [
+                                                          "Site Audit \u0026 Crawl API"
+                                                      ],
+                                             "summary":  "Single-URL Headless Chrome Technical, CWV \u0026 AI-Crawler Audit",
+                                             "description":  "Audits a single URL in Headless Chrome (desktop 1366x768 or mobile 390x844). Returns 60+ technical data points across HTTP, On-Page SEO, Core Web Vitals, Page Weight, Links/Media, Security Headers, AI Crawler Readiness, and prioritized issues. Add detail=full at 0 extra credits to include deep DOM arrays (headings outline, oversized/missing-alt image URLs, raw JSON-LD, links inventory, and extracted text). Credit Cost: Vault: 3 Cr | Live: 10 Cr | Deep (+30 Links): 20 Cr.",
+                                             "operationId":  "ep_get_audit",
+                                             "responses":  {
+                                                               "200":  {
+                                                                           "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                       },
+                                                               "401":  {
+                                                                           "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                       },
+                                                               "402":  {
+                                                                           "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                       },
+                                                               "429":  {
+                                                                           "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                       }
+                                                           },
+                                             "parameters":  [
+                                                                {
+                                                                    "name":  "url",
+                                                                    "in":  "query",
+                                                                    "required":  true,
+                                                                    "description":  "Full public HTTP/HTTPS URL or domain (e.g. https://serpspur.com/). Private/loopback/metadata IPs are blocked.",
+                                                                    "schema":  {
+                                                                                   "type":  "string"
+                                                                               }
+                                                                },
+                                                                {
+                                                                    "name":  "device",
+                                                                    "in":  "query",
+                                                                    "required":  false,
+                                                                    "description":  "Viewport emulation: \"desktop\" (1366×768) or \"mobile\" (390×844).",
+                                                                    "schema":  {
+                                                                                   "type":  "string"
+                                                                               }
+                                                                },
+                                                                {
+                                                                    "name":  "detail",
+                                                                    "in":  "query",
+                                                                    "required":  false,
+                                                                    "description":  "\"standard\" (compact metrics) or \"full\" (adds deep_onpage object with full headings outline, images, OG/Twitter, JSON-LD, links inventory \u0026 5,000-char text preview for 0 extra credits).",
+                                                                    "schema":  {
+                                                                                   "type":  "string"
+                                                                               }
+                                                                },
+                                                                {
+                                                                    "name":  "check_links",
+                                                                    "in":  "query",
+                                                                    "required":  false,
+                                                                    "description":  "Set 1 to live-verify HTTP status of up to 30 internal/external links on the page (20 Cr).",
+                                                                    "schema":  {
+                                                                                   "type":  "string"
+                                                                               }
+                                                                },
+                                                                {
+                                                                    "name":  "mode",
+                                                                    "in":  "query",
+                                                                    "required":  false,
+                                                                    "description":  "\"sandbox\" (0 Cr), \"vault\" (24h cache only; 404 = 0 Cr), \"live\" (force fresh render), or \"auto\" (24h vault hit -\u003e live fallback).",
+                                                                    "schema":  {
+                                                                                   "type":  "string"
+                                                                               }
+                                                                }
+                                                            ]
+                                         }
+                             },
+                  "/audit/crawl":  {
+                                       "post":  {
+                                                    "tags":  [
+                                                                 "Site Audit \u0026 Crawl API"
+                                                             ],
+                                                    "summary":  "Start Async Multi-Page Full-Site Crawl (5–100 Pages)",
+                                                    "description":  "Dispatches a non-blocking 5–100 page Headless Chrome site crawl via sitemap discovery + internal link BFS. Returns immediately (\u003c250ms) with a job_id and poll_url so your app never times out. Credits are reserved upfront (max_pages × 2 Cr); if the site has fewer pages than requested, unused credits are auto-refunded atomically upon completion (both when polled and via our 15-minute background reconciler cron). Credit Cost: 2 Cr / crawled page (unused pages auto-refunded).",
+                                                    "operationId":  "ep_post_audit_crawl",
+                                                    "responses":  {
+                                                                      "200":  {
+                                                                                  "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                              },
+                                                                      "401":  {
+                                                                                  "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                              },
+                                                                      "402":  {
+                                                                                  "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                              },
+                                                                      "429":  {
+                                                                                  "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                              }
+                                                                  },
+                                                    "requestBody":  {
+                                                                        "required":  true,
+                                                                        "content":  {
+                                                                                        "application/json":  {
+                                                                                                                 "schema":  {
+                                                                                                                                "type":  "object",
+                                                                                                                                "properties":  {
+                                                                                                                                                   "url":  {
+                                                                                                                                                               "type":  "string",
+                                                                                                                                                               "description":  "Starting root URL or domain (also accepts \"domain\" alias)."
+                                                                                                                                                           },
+                                                                                                                                                   "max_pages":  {
+                                                                                                                                                                     "type":  "integer",
+                                                                                                                                                                     "description":  "Max unique pages to crawl (clamped 5–100). Upfront reserve = max_pages × 2 Cr."
+                                                                                                                                                                 },
+                                                                                                                                                   "device":  {
+                                                                                                                                                                  "type":  "string",
+                                                                                                                                                                  "description":  "\"desktop\" or \"mobile\" Chrome viewport."
+                                                                                                                                                              },
+                                                                                                                                                   "webhook_url":  {
+                                                                                                                                                                       "type":  "string",
+                                                                                                                                                                       "description":  "Optional public HTTPS callback URL notified via JSON POST when crawl finishes (SSRF-validated)."
+                                                                                                                                                                   },
+                                                                                                                                                   "mode":  {
+                                                                                                                                                                "type":  "string",
+                                                                                                                                                                "description":  "\"live\" (real background crawl) or \"sandbox\" (0 Cr instant test job)."
+                                                                                                                                                            }
+                                                                                                                                               },
+                                                                                                                                "required":  [
+                                                                                                                                                 "url"
+                                                                                                                                             ]
+                                                                                                                            }
+                                                                                                             }
+                                                                                    }
+                                                                    }
+                                                }
+                                   },
+                  "/audit/crawl/{job_id}":  {
+                                                "get":  {
+                                                            "tags":  [
+                                                                         "Site Audit \u0026 Crawl API"
+                                                                     ],
+                                                            "summary":  "Poll Crawl Progress, Paginated JSON Report \u0026 Streaming CSV Export",
+                                                            "description":  "Polls a running crawl or retrieves a permanently archived completed crawl for 0 credits. Returns site-wide health rollup, cross-page duplicate title/meta clusters, AI crawler readiness, paginated per-page audits, and exact auto-refund accounting. Append ?format=csv to stream ALL crawled pages directly as an RFC-4180 CSV file. Credit Cost: 0 Credits (Free Polling \u0026 CSV Download).",
+                                                            "operationId":  "ep_get_audit_crawl_status",
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                                      },
+                                                                              "401":  {
+                                                                                          "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                                      },
+                                                                              "402":  {
+                                                                                          "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                                      },
+                                                                              "429":  {
+                                                                                          "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                                      }
+                                                                          },
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "name":  "job_id",
+                                                                                   "in":  "path",
+                                                                                   "required":  true,
+                                                                                   "description":  "Job ID returned by POST /api/v1/audit/crawl (or \"crawl_sandbox_demo\" for free sandbox).",
+                                                                                   "schema":  {
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                               },
+                                                                               {
+                                                                                   "name":  "page / per_page",
+                                                                                   "in":  "query",
+                                                                                   "required":  false,
+                                                                                   "description":  "Pagination controls for pages[] in JSON mode (per_page 1–100).",
+                                                                                   "schema":  {
+                                                                                                  "type":  "integer"
+                                                                                              }
+                                                                               },
+                                                                               {
+                                                                                   "name":  "format",
+                                                                                   "in":  "query",
+                                                                                   "required":  false,
+                                                                                   "description":  "\"json\" (paginated) or \"csv\" (streams ALL crawled pages as text/csv with Content-Disposition attachment; returns HTTP 409 if crawl is still running).",
+                                                                                   "schema":  {
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                               }
+                                                                           ]
+                                                        }
+                                            },
+                  "/audit/crawls":  {
+                                        "get":  {
+                                                    "tags":  [
+                                                                 "Site Audit \u0026 Crawl API"
+                                                             ],
+                                                    "summary":  "List Past Async Site Crawl Jobs",
+                                                    "description":  "Returns a paginated history of all multi-page site crawl tasks created by your account, filterable by status, with ready-to-use poll_url and csv_url links. Credit Cost: 0 Credits (Free Task History).",
+                                                    "operationId":  "ep_get_audit_crawls",
+                                                    "responses":  {
+                                                                      "200":  {
+                                                                                  "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                              },
+                                                                      "401":  {
+                                                                                  "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                              },
+                                                                      "402":  {
+                                                                                  "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                              },
+                                                                      "429":  {
+                                                                                  "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                              }
+                                                                  },
+                                                    "parameters":  [
+                                                                       {
+                                                                           "name":  "page / per_page",
+                                                                           "in":  "query",
+                                                                           "required":  false,
+                                                                           "description":  "Pagination controls (per_page 1–50).",
+                                                                           "schema":  {
+                                                                                          "type":  "integer"
+                                                                                      }
+                                                                       },
+                                                                       {
+                                                                           "name":  "status",
+                                                                           "in":  "query",
+                                                                           "required":  false,
+                                                                           "description":  "Filter by \"all\", \"queued\", \"running\", \"completed\", or \"failed\".",
+                                                                           "schema":  {
+                                                                                          "type":  "string"
+                                                                                      }
+                                                                       },
+                                                                       {
+                                                                           "name":  "mode",
+                                                                           "in":  "query",
+                                                                           "required":  false,
+                                                                           "description":  "Pass \"sandbox\" to test response shape for 0 credits.",
+                                                                           "schema":  {
+                                                                                          "type":  "string"
+                                                                                      }
+                                                                       }
+                                                                   ]
+                                                }
+                                    },
+                  "/audit/batch":  {
+                                       "post":  {
+                                                    "tags":  [
+                                                                 "Site Audit \u0026 Crawl API"
+                                                             ],
+                                                    "summary":  "Batch Technical Audit Vault Lookup (Up to 50 URLs)",
+                                                    "description":  "Checks up to 50 URLs against the 24-hour Technical Audit Vault in a single ultra-fast request. You are charged only for cache hits; misses cost 0 credits. Credit Cost: 3 Cr / Vault Hit (0 Cr for Misses).",
+                                                    "operationId":  "ep_post_audit_batch",
+                                                    "responses":  {
+                                                                      "200":  {
+                                                                                  "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                              },
+                                                                      "401":  {
+                                                                                  "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                              },
+                                                                      "402":  {
+                                                                                  "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                              },
+                                                                      "429":  {
+                                                                                  "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                              }
+                                                                  },
+                                                    "requestBody":  {
+                                                                        "required":  true,
+                                                                        "content":  {
+                                                                                        "application/json":  {
+                                                                                                                 "schema":  {
+                                                                                                                                "type":  "object",
+                                                                                                                                "properties":  {
+                                                                                                                                                   "urls":  {
+                                                                                                                                                                "type":  "array",
+                                                                                                                                                                "description":  "Array of 1–50 public URLs to look up."
+                                                                                                                                                            },
+                                                                                                                                                   "device":  {
+                                                                                                                                                                  "type":  "string",
+                                                                                                                                                                  "description":  "\"desktop\" or \"mobile\"."
+                                                                                                                                                              },
+                                                                                                                                                   "mode":  {
+                                                                                                                                                                "type":  "string",
+                                                                                                                                                                "description":  "\"vault\" or \"sandbox\" (0 Cr)."
+                                                                                                                                                            }
+                                                                                                                                               },
+                                                                                                                                "required":  [
+                                                                                                                                                 "urls"
+                                                                                                                                             ]
+                                                                                                                            }
+                                                                                                             }
+                                                                                    }
+                                                                    }
+                                                }
+                                   },
+                  "/backlinks":  {
+                                     "get":  {
+                                                 "tags":  [
+                                                              "Backlinks \u0026 Gap API"
+                                                          ],
+                                                 "summary":  "Domain Authority Summary \u0026 Agency-Filtered Backlink Stream",
+                                                 "description":  "Retrieves normalized 0–100 Domain Rank, referring domains, dofollow ratio, spam score, CMS/TLD/country/semantic distributions, and up to 1,000 granular backlink rows per request with unlimited cursor pagination and optional CSV streaming. Credit Cost: Vault: 8 Cr | Summary: 30 Cr | P1 1K: 110 Cr | P2+ Cursor 1K: 80 Cr.",
+                                                 "operationId":  "ep_get_backlinks",
+                                                 "responses":  {
+                                                                   "200":  {
+                                                                               "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                           },
+                                                                   "401":  {
+                                                                               "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                           },
+                                                                   "402":  {
+                                                                               "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                           },
+                                                                   "429":  {
+                                                                               "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                           }
+                                                               },
+                                                 "parameters":  [
+                                                                    {
+                                                                        "name":  "domain",
+                                                                        "in":  "query",
+                                                                        "required":  true,
+                                                                        "description":  "Target root domain (e.g. ahrefs.com).",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "include_links",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "0 = Authority Summary \u0026 distributions only (30 Cr). 1 = Include granular top_backlinks[] rows.",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "limit",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Backlinks per page (10 to 1,000). Usage-billed per 100 actually returned rows.",
+                                                                        "schema":  {
+                                                                                       "type":  "integer"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "cursor",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Opaque pagination.next_cursor token from prior response for unlimited Page 2+ streaming (skips Summary automatically).",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "offset / links_only",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Integer offset up to 10,000 (use cursor past 10K). links_only=1 skips Summary on Page 1.",
+                                                                        "schema":  {
+                                                                                       "type":  "integer"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "link_mode",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "\"as_is\" (all links), \"one_per_domain\" (1 best link per referring domain), or \"one_per_anchor\".",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "dofollow_only",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Set 1 to return only dofollow backlinks.",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "platform_type / cms",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Filter by referring site CMS/platform: cms, blogs, ecommerce, news, wikis, forums, message-boards, organization, etc.",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "backlink_type",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Filter by HTML link element: anchor, image, link, redirect, canonical, meta, alternate.",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "status",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Link lifecycle filter: \"live\", \"lost\", or \"all\".",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "min_rank / max_spam_score",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Minimum referring domain rank (0–100) and maximum allowed backlink spam score (0–100).",
+                                                                        "schema":  {
+                                                                                       "type":  "integer"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "tld / anchor / semantic_location",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Filter by TLD (e.g. edu, gov, co.uk), anchor substring, or HTML placement (article, main, section, header, footer, aside, nav, details).",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "broken_only / exclude_broken / new_only",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Boolean quality filters for broken-link prospecting or freshly acquired links.",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "sort_by",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "Sort order: \"rank_desc\", \"page_rank_desc\", \"first_seen_desc\", or \"spam_asc\".",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    },
+                                                                    {
+                                                                        "name":  "format / mode",
+                                                                        "in":  "query",
+                                                                        "required":  false,
+                                                                        "description":  "format=\"json\"|\"csv\" (RFC-4180 stream). mode=\"sandbox\"|\"vault\"|\"live\"|\"auto\".",
+                                                                        "schema":  {
+                                                                                       "type":  "string"
+                                                                                   }
+                                                                    }
+                                                                ]
+                                             }
+                                 },
+                  "/backlinks/gap":  {
+                                         "post":  {
+                                                      "tags":  [
+                                                                   "Backlinks \u0026 Gap API"
+                                                               ],
+                                                      "summary":  "Competitor Backlink Gap Intersection (1–4 Competitors)",
+                                                      "description":  "Finds high-authority referring domains linking to your competitors that do NOT yet link to your target domain — ranked by authority for immediate outreach prospecting. Credit Cost: 30 Credits / Analysis.",
+                                                      "operationId":  "ep_post_backlinks_gap",
+                                                      "responses":  {
+                                                                        "200":  {
+                                                                                    "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                                },
+                                                                        "401":  {
+                                                                                    "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                                },
+                                                                        "402":  {
+                                                                                    "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                                },
+                                                                        "429":  {
+                                                                                    "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                                }
+                                                                    },
+                                                      "requestBody":  {
+                                                                          "required":  true,
+                                                                          "content":  {
+                                                                                          "application/json":  {
+                                                                                                                   "schema":  {
+                                                                                                                                  "type":  "object",
+                                                                                                                                  "properties":  {
+                                                                                                                                                     "target":  {
+                                                                                                                                                                    "type":  "string",
+                                                                                                                                                                    "description":  "Your domain to exclude from results (e.g. serpspur.com)."
+                                                                                                                                                                },
+                                                                                                                                                     "competitors":  {
+                                                                                                                                                                         "type":  "array",
+                                                                                                                                                                         "description":  "1 to 4 competitor domains to intersect (e.g. [\"ahrefs.com\",\"semrush.com\"])."
+                                                                                                                                                                     },
+                                                                                                                                                     "intersection":  {
+                                                                                                                                                                          "type":  "string",
+                                                                                                                                                                          "description":  "\"all\" (sites linking to ALL listed competitors) or \"partial\" (linking to any competitor)."
+                                                                                                                                                                      },
+                                                                                                                                                     "limit":  {
+                                                                                                                                                                   "type":  "integer",
+                                                                                                                                                                   "description":  "Max prospect domains returned (1–100)."
+                                                                                                                                                               },
+                                                                                                                                                     "mode":  {
+                                                                                                                                                                  "type":  "string",
+                                                                                                                                                                  "description":  "\"live\" or \"sandbox\" (0 Cr)."
+                                                                                                                                                              }
+                                                                                                                                                 },
+                                                                                                                                  "required":  [
+                                                                                                                                                   "target",
+                                                                                                                                                   "competitors"
+                                                                                                                                               ]
+                                                                                                                              }
+                                                                                                               }
+                                                                                      }
+                                                                      }
+                                                  }
+                                     },
+                  "/backlinks/batch":  {
+                                           "post":  {
+                                                        "tags":  [
+                                                                     "Backlinks \u0026 Gap API"
+                                                                 ],
+                                                        "summary":  "Batch Backlinks Vault Lookup (Up to 50 Domains)",
+                                                        "description":  "Screens up to 50 domains in one call against the 30-day Backlinks Vault for authority summaries. Only cache hits are billed (8 Cr/hit). Credit Cost: 8 Cr / Vault Hit (0 Cr for Misses).",
+                                                        "operationId":  "ep_post_backlinks_batch",
+                                                        "responses":  {
+                                                                          "200":  {
+                                                                                      "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                                  },
+                                                                          "401":  {
+                                                                                      "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                                  },
+                                                                          "402":  {
+                                                                                      "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                                  },
+                                                                          "429":  {
+                                                                                      "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                                  }
+                                                                      },
+                                                        "requestBody":  {
+                                                                            "required":  true,
+                                                                            "content":  {
+                                                                                            "application/json":  {
+                                                                                                                     "schema":  {
+                                                                                                                                    "type":  "object",
+                                                                                                                                    "properties":  {
+                                                                                                                                                       "domains":  {
+                                                                                                                                                                       "type":  "array",
+                                                                                                                                                                       "description":  "1 to 50 root domains."
+                                                                                                                                                                   },
+                                                                                                                                                       "mode":  {
+                                                                                                                                                                    "type":  "string",
+                                                                                                                                                                    "description":  "\"vault\" or \"sandbox\" (0 Cr)."
+                                                                                                                                                                }
+                                                                                                                                                   },
+                                                                                                                                    "required":  [
+                                                                                                                                                     "domains"
+                                                                                                                                                 ]
+                                                                                                                                }
+                                                                                                                 }
+                                                                                        }
+                                                                        }
+                                                    }
+                                       },
+                  "/keywords":  {
+                                    "get":  {
+                                                "tags":  [
+                                                             "Keyword Research API"
+                                                         ],
+                                                "summary":  "Single Keyword Intelligence \u0026 Related Cluster Scan (Depth 0–4)",
+                                                "description":  "Returns full seed keyword telemetry plus related keyword cluster sized by your chosen depth (0 = seed only, 1 = lite/top 8, 2 = standard/top 30, 3 = full/100 KWs, 4 = mega/200 KWs). Credit Cost: Vault: 5 Cr | D0: 15 | Lite: 18 | D2: 22 | Full 100: 30 | Mega: 50 Cr.",
+                                                "operationId":  "ep_get_keywords",
+                                                "responses":  {
+                                                                  "200":  {
+                                                                              "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                          },
+                                                                  "401":  {
+                                                                              "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                          },
+                                                                  "402":  {
+                                                                              "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                          },
+                                                                  "429":  {
+                                                                              "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                          }
+                                                              },
+                                                "parameters":  [
+                                                                   {
+                                                                       "name":  "keyword",
+                                                                       "in":  "query",
+                                                                       "required":  true,
+                                                                       "description":  "Seed keyword query (1 to 120 characters).",
+                                                                       "schema":  {
+                                                                                      "type":  "string"
+                                                                                  }
+                                                                   },
+                                                                   {
+                                                                       "name":  "country",
+                                                                       "in":  "query",
+                                                                       "required":  false,
+                                                                       "description":  "2-letter ISO country code (us, gb, ca, au, de, in, etc.).",
+                                                                       "schema":  {
+                                                                                      "type":  "string"
+                                                                                  }
+                                                                   },
+                                                                   {
+                                                                       "name":  "language",
+                                                                       "in":  "query",
+                                                                       "required":  false,
+                                                                       "description":  "2-letter ISO language code (en, es, de, fr, etc.).",
+                                                                       "schema":  {
+                                                                                      "type":  "string"
+                                                                                  }
+                                                                   },
+                                                                   {
+                                                                       "name":  "depth",
+                                                                       "in":  "query",
+                                                                       "required":  false,
+                                                                       "description":  "0=Seed only (15 Cr), 1=Lite/8 KWs (18 Cr), 2=Standard/30 KWs (22 Cr), 3=Full/100 KWs (30 Cr), 4=Mega/200 KWs (50 Cr).",
+                                                                       "schema":  {
+                                                                                      "type":  "integer"
+                                                                                  }
+                                                                   },
+                                                                   {
+                                                                       "name":  "mode",
+                                                                       "in":  "query",
+                                                                       "required":  false,
+                                                                       "description":  "\"sandbox\" (0 Cr), \"vault\" (5 Cr; 404 = 0 Cr), \"seed\", \"lite\", \"standard\", \"full\", or \"mega\".",
+                                                                       "schema":  {
+                                                                                      "type":  "string"
+                                                                                  }
+                                                                   }
+                                                               ]
+                                            }
+                                },
+                  "/keywords/batch":  {
+                                          "post":  {
+                                                       "tags":  [
+                                                                    "Keyword Research API"
+                                                                ],
+                                                       "summary":  "Batch Keyword Intelligence (Up to 50 Vault / 10 Live)",
+                                                       "description":  "Enriches up to 50 keywords in 1 call against the 30-day Keyword Vault (0 credits for misses) or up to 10 keywords live. Credit Cost: 18 Cr / Hit (0 Cr for Vault Misses).",
+                                                       "operationId":  "ep_post_keywords_batch",
+                                                       "responses":  {
+                                                                         "200":  {
+                                                                                     "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                                 },
+                                                                         "401":  {
+                                                                                     "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                                 },
+                                                                         "402":  {
+                                                                                     "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                                 },
+                                                                         "429":  {
+                                                                                     "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                                 }
+                                                                     },
+                                                       "requestBody":  {
+                                                                           "required":  true,
+                                                                           "content":  {
+                                                                                           "application/json":  {
+                                                                                                                    "schema":  {
+                                                                                                                                   "type":  "object",
+                                                                                                                                   "properties":  {
+                                                                                                                                                      "keywords":  {
+                                                                                                                                                                       "type":  "array",
+                                                                                                                                                                       "description":  "Array or comma-separated list (max 50 in vault/sandbox, max 10 in live)."
+                                                                                                                                                                   },
+                                                                                                                                                      "country / language":  {
+                                                                                                                                                                                 "type":  "string",
+                                                                                                                                                                                 "description":  "2-letter ISO market \u0026 language."
+                                                                                                                                                                             },
+                                                                                                                                                      "mode":  {
+                                                                                                                                                                   "type":  "string",
+                                                                                                                                                                   "description":  "\"vault\", \"live\", or \"sandbox\" (0 Cr)."
+                                                                                                                                                               }
+                                                                                                                                                  },
+                                                                                                                                   "required":  [
+                                                                                                                                                    "keywords"
+                                                                                                                                                ]
+                                                                                                                               }
+                                                                                                                }
+                                                                                       }
+                                                                       }
+                                                   }
+                                      },
+                  "/keywords/golden":  {
+                                           "get":  {
+                                                       "tags":  [
+                                                                    "Keyword Research API"
+                                                                ],
+                                                       "summary":  "Community Golden Gems Feed (Low-KD High-Volume Keywords)",
+                                                       "description":  "Returns trending high-opportunity, low-difficulty Golden Keywords discovered across the SERPSpur ecosystem over the last day or week. Credit Cost: 5 Credits / Call.",
+                                                       "operationId":  "ep_get_keywords_golden",
+                                                       "responses":  {
+                                                                         "200":  {
+                                                                                     "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                                 },
+                                                                         "401":  {
+                                                                                     "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                                 },
+                                                                         "402":  {
+                                                                                     "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                                 },
+                                                                         "429":  {
+                                                                                     "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                                 }
+                                                                     },
+                                                       "parameters":  [
+                                                                          {
+                                                                              "name":  "period",
+                                                                              "in":  "query",
+                                                                              "required":  false,
+                                                                              "description":  "\"daily\" or \"weekly\".",
+                                                                              "schema":  {
+                                                                                             "type":  "string"
+                                                                                         }
+                                                                          },
+                                                                          {
+                                                                              "name":  "limit",
+                                                                              "in":  "query",
+                                                                              "required":  false,
+                                                                              "description":  "Max gems returned (up to 50).",
+                                                                              "schema":  {
+                                                                                             "type":  "integer"
+                                                                                         }
+                                                                          }
+                                                                      ]
+                                                   }
+                                       },
+                  "/serp":  {
+                                "get":  {
+                                            "tags":  [
+                                                         "7-Engine SERP API"
+                                                     ],
+                                            "summary":  "Single-Engine Live SERP \u0026 Dynamic Rank Match",
+                                            "description":  "Fetches organic results, AI Overview detection, and SERP features for a keyword on any of the 7 supported engines. Supplying domain= automatically computes target_domain_rank without extra credits. Credit Cost: Vault (24h): 3 Cr | Live: 15 Cr.",
+                                            "operationId":  "ep_get_serp",
+                                            "responses":  {
+                                                              "200":  {
+                                                                          "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                      },
+                                                              "401":  {
+                                                                          "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                      },
+                                                              "402":  {
+                                                                          "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                      },
+                                                              "429":  {
+                                                                          "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                      }
+                                                          },
+                                            "parameters":  [
+                                                               {
+                                                                   "name":  "keyword",
+                                                                   "in":  "query",
+                                                                   "required":  true,
+                                                                   "description":  "Search query to check.",
+                                                                   "schema":  {
+                                                                                  "type":  "string"
+                                                                              }
+                                                               },
+                                                               {
+                                                                   "name":  "engine",
+                                                                   "in":  "query",
+                                                                   "required":  false,
+                                                                   "description":  "\"google\", \"bing\", \"yahoo\", \"youtube\", \"seznam\", \"naver\", or \"baidu\".",
+                                                                   "schema":  {
+                                                                                  "type":  "string"
+                                                                              }
+                                                               },
+                                                               {
+                                                                   "name":  "location",
+                                                                   "in":  "query",
+                                                                   "required":  false,
+                                                                   "description":  "Country / market name (e.g. United States, United Kingdom, Germany, India).",
+                                                                   "schema":  {
+                                                                                  "type":  "string"
+                                                                              }
+                                                               },
+                                                               {
+                                                                   "name":  "language",
+                                                                   "in":  "query",
+                                                                   "required":  false,
+                                                                   "description":  "Search interface language.",
+                                                                   "schema":  {
+                                                                                  "type":  "string"
+                                                                              }
+                                                               },
+                                                               {
+                                                                   "name":  "domain",
+                                                                   "in":  "query",
+                                                                   "required":  false,
+                                                                   "description":  "Optional root domain for automatic organic rank \u0026 URL matching.",
+                                                                   "schema":  {
+                                                                                  "type":  "string"
+                                                                              }
+                                                               },
+                                                               {
+                                                                   "name":  "depth",
+                                                                   "in":  "query",
+                                                                   "required":  false,
+                                                                   "description":  "SERP result depth (10–100).",
+                                                                   "schema":  {
+                                                                                  "type":  "integer"
+                                                                              }
+                                                               },
+                                                               {
+                                                                   "name":  "mode",
+                                                                   "in":  "query",
+                                                                   "required":  false,
+                                                                   "description":  "\"sandbox\" (0 Cr), \"vault\" (24h cache), \"live\", or \"auto\".",
+                                                                   "schema":  {
+                                                                                  "type":  "string"
+                                                                              }
+                                                               }
+                                                           ]
+                                        }
+                            },
+                  "/serp/multi":  {
+                                      "post":  {
+                                                   "tags":  [
+                                                                "7-Engine SERP API"
+                                                            ],
+                                                   "summary":  "Parallel Multi-Engine SERP \u0026 Rank Comparison (1–7 Engines)",
+                                                   "description":  "Dispatches up to 7 search engines concurrently in one request and returns side-by-side positions, AI Overview presence, and organic results for every engine. Credit Cost: 10 Cr / Live Engine (3 Cr if 24h Cached).",
+                                                   "operationId":  "ep_post_serp_multi",
+                                                   "responses":  {
+                                                                     "200":  {
+                                                                                 "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                             },
+                                                                     "401":  {
+                                                                                 "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                             },
+                                                                     "402":  {
+                                                                                 "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                             },
+                                                                     "429":  {
+                                                                                 "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                             }
+                                                                 },
+                                                   "requestBody":  {
+                                                                       "required":  true,
+                                                                       "content":  {
+                                                                                       "application/json":  {
+                                                                                                                "schema":  {
+                                                                                                                               "type":  "object",
+                                                                                                                               "properties":  {
+                                                                                                                                                  "keyword":  {
+                                                                                                                                                                  "type":  "string",
+                                                                                                                                                                  "description":  "Target keyword."
+                                                                                                                                                              },
+                                                                                                                                                  "engines":  {
+                                                                                                                                                                  "type":  "array",
+                                                                                                                                                                  "description":  "1 to 7 engines: google, bing, yahoo, youtube, seznam, naver, baidu."
+                                                                                                                                                              },
+                                                                                                                                                  "domain":  {
+                                                                                                                                                                 "type":  "string",
+                                                                                                                                                                 "description":  "Optional target domain for side-by-side rank comparison."
+                                                                                                                                                             },
+                                                                                                                                                  "location / mode":  {
+                                                                                                                                                                          "type":  "string",
+                                                                                                                                                                          "description":  "Geo market and \"sandbox\"|\"auto\"|\"live\"."
+                                                                                                                                                                      }
+                                                                                                                                              },
+                                                                                                                               "required":  [
+                                                                                                                                                "keyword"
+                                                                                                                                            ]
+                                                                                                                           }
+                                                                                                            }
+                                                                                   }
+                                                                   }
+                                               }
+                                  },
+                  "/ai-mentions":  {
+                                       "get":  {
+                                                   "tags":  [
+                                                                "AI Mentions (GEO) API"
+                                                            ],
+                                                   "summary":  "Brand AI Mentions, Citations \u0026 GEO Visibility Score",
+                                                   "description":  "Measures brand/domain citations across ChatGPT and Google AI Overviews, returning composite GEO score, per-engine metrics, top citing domains, and recognized entity categories. Credit Cost: Vault (30d): 15 Cr | Single Engine: 125 Cr | Dual Engine: 245 Cr.",
+                                                   "operationId":  "ep_get_ai_mentions",
+                                                   "responses":  {
+                                                                     "200":  {
+                                                                                 "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                             },
+                                                                     "401":  {
+                                                                                 "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                             },
+                                                                     "402":  {
+                                                                                 "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                             },
+                                                                     "429":  {
+                                                                                 "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                             }
+                                                                 },
+                                                   "parameters":  [
+                                                                      {
+                                                                          "name":  "domain",
+                                                                          "in":  "query",
+                                                                          "required":  true,
+                                                                          "description":  "Target brand domain (e.g. serpspur.com).",
+                                                                          "schema":  {
+                                                                                         "type":  "string"
+                                                                                     }
+                                                                      },
+                                                                      {
+                                                                          "name":  "brand",
+                                                                          "in":  "query",
+                                                                          "required":  false,
+                                                                          "description":  "Optional explicit brand name keyword to pair with the domain.",
+                                                                          "schema":  {
+                                                                                         "type":  "string"
+                                                                                     }
+                                                                      },
+                                                                      {
+                                                                          "name":  "engine",
+                                                                          "in":  "query",
+                                                                          "required":  false,
+                                                                          "description":  "\"both\" (ChatGPT + Google AI), \"chat_gpt\", or \"google\".",
+                                                                          "schema":  {
+                                                                                         "type":  "string"
+                                                                                     }
+                                                                      },
+                                                                      {
+                                                                          "name":  "location",
+                                                                          "in":  "query",
+                                                                          "required":  false,
+                                                                          "description":  "Target country market.",
+                                                                          "schema":  {
+                                                                                         "type":  "string"
+                                                                                     }
+                                                                      },
+                                                                      {
+                                                                          "name":  "mode",
+                                                                          "in":  "query",
+                                                                          "required":  false,
+                                                                          "description":  "\"sandbox\" (0 Cr), \"vault\" (30d cache), \"live\", or \"auto\".",
+                                                                          "schema":  {
+                                                                                         "type":  "string"
+                                                                                     }
+                                                                      }
+                                                                  ]
+                                               }
+                                   },
+                  "/ai-mentions/batch":  {
+                                             "post":  {
+                                                          "tags":  [
+                                                                       "AI Mentions (GEO) API"
+                                                                   ],
+                                                          "summary":  "Batch AI Mentions Vault Lookup (Up to 50 Domains)",
+                                                          "description":  "Checks up to 50 domains in 1 request against the 30-day GEO Vault. Only cache hits consume credits. Credit Cost: 15 Cr / Vault Hit (0 Cr for Misses).",
+                                                          "operationId":  "ep_post_ai_mentions_batch",
+                                                          "responses":  {
+                                                                            "200":  {
+                                                                                        "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                                    },
+                                                                            "401":  {
+                                                                                        "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                                    },
+                                                                            "402":  {
+                                                                                        "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                                    },
+                                                                            "429":  {
+                                                                                        "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                                    }
+                                                                        },
+                                                          "requestBody":  {
+                                                                              "required":  true,
+                                                                              "content":  {
+                                                                                              "application/json":  {
+                                                                                                                       "schema":  {
+                                                                                                                                      "type":  "object",
+                                                                                                                                      "properties":  {
+                                                                                                                                                         "domains":  {
+                                                                                                                                                                         "type":  "array",
+                                                                                                                                                                         "description":  "1 to 50 domains to screen."
+                                                                                                                                                                     },
+                                                                                                                                                         "mode":  {
+                                                                                                                                                                      "type":  "string",
+                                                                                                                                                                      "description":  "\"vault\" or \"sandbox\" (0 Cr)."
+                                                                                                                                                                  }
+                                                                                                                                                     },
+                                                                                                                                      "required":  [
+                                                                                                                                                       "domains"
+                                                                                                                                                   ]
+                                                                                                                                  }
+                                                                                                                   }
+                                                                                          }
+                                                                          }
+                                                      }
+                                         },
+                  "/domain":  {
+                                  "get":  {
+                                              "tags":  [
+                                                           "Domain Explorer API"
+                                                       ],
+                                              "summary":  "Global Domain Traffic, Position Distribution \u0026 Top Countries",
+                                              "description":  "Returns deduplicated worldwide organic \u0026 paid traffic metrics, USD valuation, position buckets, keyword velocity, top countries, and cross-intelligence signals. Credit Cost: Vault (30d): 5 Cr | Live Global Scan: 20 Cr.",
+                                              "operationId":  "ep_get_domain",
+                                              "responses":  {
+                                                                "200":  {
+                                                                            "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                        },
+                                                                "401":  {
+                                                                            "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                        },
+                                                                "402":  {
+                                                                            "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                        },
+                                                                "429":  {
+                                                                            "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                        }
+                                                            },
+                                              "parameters":  [
+                                                                 {
+                                                                     "name":  "domain",
+                                                                     "in":  "query",
+                                                                     "required":  true,
+                                                                     "description":  "Target root domain (e.g. ahrefs.com).",
+                                                                     "schema":  {
+                                                                                    "type":  "string"
+                                                                                }
+                                                                 },
+                                                                 {
+                                                                     "name":  "top_countries",
+                                                                     "in":  "query",
+                                                                     "required":  false,
+                                                                     "description":  "Number of top ranking countries to return in top_countries[].",
+                                                                     "schema":  {
+                                                                                    "type":  "integer"
+                                                                                }
+                                                                 },
+                                                                 {
+                                                                     "name":  "mode",
+                                                                     "in":  "query",
+                                                                     "required":  false,
+                                                                     "description":  "\"sandbox\" (0 Cr), \"vault\" (30d cache), \"live\", or \"auto\".",
+                                                                     "schema":  {
+                                                                                    "type":  "string"
+                                                                                }
+                                                                 }
+                                                             ]
+                                          }
+                              },
+                  "/domain/batch":  {
+                                        "post":  {
+                                                     "tags":  [
+                                                                  "Domain Explorer API"
+                                                              ],
+                                                     "summary":  "Batch Domain Explorer Vault Lookup (Up to 50 Domains)",
+                                                     "description":  "Screens up to 50 domains in one call against the 30-day Domain Explorer Vault. Misses cost 0 credits. Credit Cost: 5 Cr / Vault Hit (0 Cr for Misses).",
+                                                     "operationId":  "ep_post_domain_batch",
+                                                     "responses":  {
+                                                                       "200":  {
+                                                                                   "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                               },
+                                                                       "401":  {
+                                                                                   "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                               },
+                                                                       "402":  {
+                                                                                   "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                               },
+                                                                       "429":  {
+                                                                                   "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                               }
+                                                                   },
+                                                     "requestBody":  {
+                                                                         "required":  true,
+                                                                         "content":  {
+                                                                                         "application/json":  {
+                                                                                                                  "schema":  {
+                                                                                                                                 "type":  "object",
+                                                                                                                                 "properties":  {
+                                                                                                                                                    "domains":  {
+                                                                                                                                                                    "type":  "array",
+                                                                                                                                                                    "description":  "1 to 50 domains."
+                                                                                                                                                                },
+                                                                                                                                                    "mode":  {
+                                                                                                                                                                 "type":  "string",
+                                                                                                                                                                 "description":  "\"vault\" or \"sandbox\" (0 Cr)."
+                                                                                                                                                             }
+                                                                                                                                                },
+                                                                                                                                 "required":  [
+                                                                                                                                                  "domains"
+                                                                                                                                              ]
+                                                                                                                             }
+                                                                                                              }
+                                                                                     }
+                                                                     }
+                                                 }
+                                    },
+                  "/tai":  {
+                               "get":  {
+                                           "tags":  [
+                                                        "TAI™ Authenticity API"
+                                                    ],
+                                           "summary":  "Single Domain TAI™ Traffic Authenticity Audit",
+                                           "description":  "Computes or retrieves the 4-pillar TAI™ score (0–100), risk verdict, verified human vs phantom traffic percentages, fraud risk booleans, and verifiable certificate URL. Credit Cost: 90-Day Vault: 10 Cr | Live Deep Scan: 50 Cr.",
+                                           "operationId":  "ep_get_tai",
+                                           "responses":  {
+                                                             "200":  {
+                                                                         "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                     },
+                                                             "401":  {
+                                                                         "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                     },
+                                                             "402":  {
+                                                                         "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                     },
+                                                             "429":  {
+                                                                         "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                     }
+                                                         },
+                                           "parameters":  [
+                                                              {
+                                                                  "name":  "domain",
+                                                                  "in":  "query",
+                                                                  "required":  true,
+                                                                  "description":  "Root domain to vet (e.g. ahrefs.com).",
+                                                                  "schema":  {
+                                                                                 "type":  "string"
+                                                                             }
+                                                              },
+                                                              {
+                                                                  "name":  "mode",
+                                                                  "in":  "query",
+                                                                  "required":  false,
+                                                                  "description":  "\"sandbox\" (0 Cr), \"vault\" (90d cache; 404 = 0 Cr), \"live\", or \"auto\".",
+                                                                  "schema":  {
+                                                                                 "type":  "string"
+                                                                             }
+                                                              }
+                                                          ]
+                                       }
+                           },
+                  "/tai/batch":  {
+                                     "post":  {
+                                                  "tags":  [
+                                                               "TAI™ Authenticity API"
+                                                           ],
+                                                  "summary":  "Batch TAI™ Vault Vetting (Up to 50 Domains)",
+                                                  "description":  "Vets up to 50 publisher domains in 1 request against the 90-day TAI™ Vault. Uncached domains return in misses[] at 0 credits. Credit Cost: 10 Cr / Vault Hit (0 Cr for Misses).",
+                                                  "operationId":  "ep_post_tai_batch",
+                                                  "responses":  {
+                                                                    "200":  {
+                                                                                "description":  "Successful response (JSON or text/csv when ?format=csv is supported)."
+                                                                            },
+                                                                    "401":  {
+                                                                                "description":  "Unauthorized — invalid or missing API key (0 credits charged)."
+                                                                            },
+                                                                    "402":  {
+                                                                                "description":  "Insufficient wallet credits (0 credits charged)."
+                                                                            },
+                                                                    "429":  {
+                                                                                "description":  "Rate, burst, or live-concurrency limit exceeded (0 credits charged)."
+                                                                            }
+                                                                },
+                                                  "requestBody":  {
+                                                                      "required":  true,
+                                                                      "content":  {
+                                                                                      "application/json":  {
+                                                                                                               "schema":  {
+                                                                                                                              "type":  "object",
+                                                                                                                              "properties":  {
+                                                                                                                                                 "domains":  {
+                                                                                                                                                                 "type":  "array",
+                                                                                                                                                                 "description":  "1 to 50 domains to vet."
+                                                                                                                                                             },
+                                                                                                                                                 "mode":  {
+                                                                                                                                                              "type":  "string",
+                                                                                                                                                              "description":  "\"vault\" or \"sandbox\" (0 Cr)."
+                                                                                                                                                          }
+                                                                                                                                             },
+                                                                                                                              "required":  [
+                                                                                                                                               "domains"
+                                                                                                                                           ]
+                                                                                                                          }
+                                                                                                           }
+                                                                                  }
+                                                                  }
+                                              }
+                                 }
+              }
+}
